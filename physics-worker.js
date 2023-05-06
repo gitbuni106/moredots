@@ -128,7 +128,7 @@ self.onmessage = (event) => {
     const dy = dot2.y - dot1.y;
     const distance = Math.sqrt(dx * dx + dy * dy);
     const minDistance = (dot1.radius + dot2.radius);
-    const mergeThreshold = 2.5; // Set a threshold for merging dots, adjust as needed
+    const mergeThreshold = 2; // Set a threshold for merging dots, adjust as needed
 
     if (distance <= minDistance) {
       // Calculate the collision angle
@@ -150,7 +150,7 @@ self.onmessage = (event) => {
       dot2.vx = v2xRotFinal * Math.cos(-collisionAngle) + v2yRot * Math.sin(-collisionAngle);
       dot2.vy = -v2xRotFinal * Math.sin(-collisionAngle) + v2yRot * Math.cos(-collisionAngle);
 
-      // Separate the dots to prevent overlap
+      // Bounce the dots to prevent overlap
       const overlap = minDistance - distance;
       const separationVector = {
         x: (overlap * dx) / distance,

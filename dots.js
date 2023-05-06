@@ -128,12 +128,12 @@ function gameLoop() {
   });
 
   // Remove dots that are too far away (5000^2)
-  const maxDistance = 7500; // You can adjust this value to your liking
-  const remainingDots = dots.filter(dot => !isDotTooFarAway(dot, centralObject, maxDistance));
+ // const maxDistance = 7500; // You can adjust this value to your liking
+ // const remainingDots = dots.filter(dot => !isDotTooFarAway(dot, centralObject, maxDistance));
 
   // Replace the current dots array with the remaining dots
-  dots.length = 0;
-  dots.push(...remainingDots);
+  //dots.length = 0;
+  //dots.push(...remainingDots);
 
   drawDots();
   requestAnimationFrame(gameLoop);
