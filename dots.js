@@ -1,9 +1,9 @@
 window.onload = init;
- const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 class Dot {
   constructor(x, y, mass, radius) {
     this.x = x;
@@ -51,33 +51,48 @@ class CentralObject {
   }
 }
 
+function resizeCanvas() {
+  const dpr = window.devicePixelRatio;
+  const rect = canvas.getBoundingClientRect();
+
+  canvas.width = window.innerWidth * dpr;
+  canvas.height = window.innerHeight * dpr;
+
+  ctx.scale(dpr, dpr);
+
+  canvas.style.width = `${rect.width}px`;
+  canvas.style.height = `${rect.height}px`;
+}
+
+
 const numDots = 10000;
 const dots = [];
 const exitButton = document.getElementById('stop-button');
 
 function init() {
 
-// Fetch the JSON data for the dots
-fetch('dots-data.json')
-  .then((response) => response.json())
-  .then((dotsData) => {
-    // Initialize the dots based on the JSON data
-    dotsData.forEach((dotData) => {
-      const dot = new Dot(dotData.x, dotData.y, dotData.mass, dotData.radius);
-      dots.push(dot);
+  // Fetch the JSON data for the dots
+  fetch('dots-data.json')
+    .then((response) => response.json())
+    .then((dotsData) => {
+      // Initialize the dots based on the JSON data
+      dotsData.forEach((dotData) => {
+        const dot = new Dot(dotData.x, dotData.y, dotData.mass, dotData.radius);
+        dots.push(dot);
+      });
+      // Start the game loop after the dots have been initialized
+
+
+
+      let GameLoopId;
+
+      gameLoopId = requestAnimationFrame(gameLoop);
+
     });
-    // Start the game loop after the dots have been initialized
-   
-
- 
-    let GameLoopId;
-
-    gameLoopId = requestAnimationFrame(gameLoop);
-
-});
 }
-                                              // the sun is 1.989x10^30kg or 1989000000000000000000000000000
-const centralObject = new CentralObject(canvas.width / 2, canvas.height / 2, 1900000000000000, 50);
+
+// the sun is 1.989x10^30kg or 1989000000000000000000000000000
+const centralObject = new CentralObject(canvas.width / 2, canvas.height / 2, 190000000000000, 50);
 
 function drawDots() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
